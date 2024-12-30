@@ -1,17 +1,18 @@
 import styles from './MovieS.module.css';
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const MovieS = () => {
-    const [movies, setMovies] = useState([]); // Стан для фільмів
-    const [loading, setLoading] = useState(true); // Стан для завантаження
-    const [error, setError] = useState(null); // Стан для помилок
+    const [movies, setMovies] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchMovies = async () => {
             try {
                 const response = await axios.get("http://localhost:5233/api/movies/popular");
-                console.log(response.data); // Вивести дані для перевірки структури
                 setMovies(response.data);
             } catch (err) {
                 setError(err.message);
@@ -23,7 +24,6 @@ const MovieS = () => {
         fetchMovies();
     }, []);
 
-
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
 
@@ -32,9 +32,13 @@ const MovieS = () => {
             <h2>Popular Movies</h2>
             <div className={styles.movies}>
                 {movies.map((movie) => (
-                    <div key={movie.id} className={styles.movieCard}>
+                    <div
+                        key={movie.id}
+                        className={styles.movieCard}
+                        onClick={() => navigate(`/movie/${movie.id}`)} // Перехід на сторінку деталей
+                    >
                         <img
-                            src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} // Змінено на poster_path
+                            src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                             alt={movie.title}
                             className={styles.movieImage}
                         />

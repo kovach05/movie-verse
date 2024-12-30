@@ -9,6 +9,8 @@ import Profile from './pages/Profile';
 import Movie from './pages/Movie';
 import ProtectedRoute from './ProtectedRoute';
 import { AuthProvider } from '/src/context/AuthProvider.jsx';
+import MovieDetails from "./components/Movie/MovieDetails.jsx";
+import MovieS from "./components/Movie/MovieS.jsx";
 
 export default function App() {
     return (
@@ -31,6 +33,8 @@ export default function App() {
                             }
                         />
                         <Route path="/movies" element={<Movie />} />
+                        <Route path="/" element={<MovieS />} />
+                        <Route path="/movie/:id" element={<MovieDetails />} />
                         <Route path="/registration" element={<Registration />} />
                         <Route path="/signin" element={<SignIn />} />
                         <Route
