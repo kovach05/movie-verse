@@ -1,81 +1,73 @@
-import styles from './MovieList.module.css';
-import { Component } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import styles from "./MovieList.module.css";
 
-class MovieList extends Component {
-    render() {
-        const movies = [
-            { title: 'Atlas', rating: 4, image: 'https://image.pmgstatic.com/cache/resized/w420/files/images/film/posters/168/730/168730519_t5roh0.jpg' },
-            { title: 'Road House', rating: 5, image: 'https://image.pmgstatic.com/cache/resized/w420/files/images/film/posters/168/762/168762684_9q95w5.png' },
-            { title: 'Guardians of the Galaxy 2', rating: 5, image: 'https://m.media-amazon.com/images/M/MV5BNWE5MGI3MDctMmU5Ni00YzI2LWEzMTQtZGIyZDA5MzQzNDBhXkEyXkFqcGc@._V1_.jpg' },
-            { title: 'Deadpool & Wolverine', rating: 5, image: 'https://image.pmgstatic.com/cache/resized/w420/files/images/film/posters/168/956/168956852_whtfuc.jpg' },
-        ];
+const MovieList = () => {
+    const [movies, setMovies] = useState([]);
+    const [tvShows, setTvShows] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-        const cartoons = [
-            { title: 'Kung Fu Panda 4', rating: 5, image: 'https://upload.wikimedia.org/wikipedia/ru/thumb/d/df/Kung_Fu_Panda_4_promo.jpg/640px-Kung_Fu_Panda_4_promo.jpg' },
-            { title: 'Inside Out 2', rating: 5, image: 'https://lumiere-a.akamaihd.net/v1/images/p_insideout2_now_available_disneyplus_d24c051c.jpeg' },
-            { title: 'Despicable Me 4', rating: 5, image: 'https://m.media-amazon.com/images/M/MV5BNzY0ZTlhYzgtOTgzZC00ZTg2LTk4NTEtZDllM2E2NGE5Njg2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg' },
-            { title: 'Transformers One', rating: 5, image: 'https://www.classificationoffice.govt.nz/media/images/transformers_one.width-700.jpg' },
-        ];
+    useEffect(() => {
+        const fetchContent = async () => {
+            try {
+                // Завантажуємо фільми
+                const moviesResponse = await axios.get("http://localhost:5233/api/movies/popular");
+                setMovies(moviesResponse.data);
 
-        const anime = [
-            { title: 'Naruto', rating: 5, image: 'https://m.media-amazon.com/images/M/MV5BZTNjOWI0ZTAtOGY1OS00ZGU0LWEyOWYtMjhkYjdlYmVjMDk2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg' },
-            { title: 'Attack on Titan', rating: 5, image: 'https://image.pmgstatic.com/cache/resized/w420/files/images/film/posters/165/980/165980476_021594.jpg' },
-            { title: 'Blue Lock', rating: 5, image: 'https://www.falcon.cz/wp/wp-content/uploads/unorganized/bluelock-poster-770.jpg' },
-            { title: 'Bleach', rating: 5, image: 'https://m.media-amazon.com/images/M/MV5BMjgyM2QzMjAtOGZjOS00OGFkLTkxZGYtMDJjZGM5MzIzYmM3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg' },
-        ];
+                // Завантажуємо серіали
+                const tvShowsResponse = await axios.get("http://localhost:5233/api/tv/popular");
+                setTvShows(tvShowsResponse.data);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-        return (
-            <div className={styles.movieList}>
-                <h2>Movies by ratings</h2>
-                <div className={styles.movies}>
-                    {movies.map((movie, index) => (
-                        <div key={index} className={styles.movieCard}>
-                            <img src={movie.image} alt={movie.title} className={styles.movieImage} />
-                            <div className={styles.movieInfo}>
-                                <h3>{movie.title}</h3>
-                                <p>
-                                    Rating: <span className={styles.stars}>{'⭐'.repeat(movie.rating)}</span>
-                                </p>
-                            </div>
+        fetchContent();
+    }, []);
+
+    if (loading) return <p className={styles.loading}>Loading...</p>;
+    if (error) return <p className={styles.error}>Error: {error}</p>;
+
+    return (
+        <div className={styles.movieList}>
+            <h2>Top Rated Movies</h2>
+            <div className={styles.horizontalScroll}>
+                {movies.map((movie) => (
+                    <div key={movie.id} className={styles.card}>
+                        <img
+                            src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                            alt={movie.title}
+                            className={styles.image}
+                        />
+                        <div className={styles.info}>
+                            <h3>{movie.title}</h3>
+                            <p>Rating: {"⭐".repeat(Math.round(movie.vote_average / 2))}</p>
                         </div>
-                    ))}
-                </div>
-                <button className={styles.button}>Load More Movies</button>
-
-                <h2>Cartoons</h2>
-                <div className={styles.movies}>
-                    {cartoons.map((cartoon, index) => (
-                        <div key={index} className={styles.movieCard}>
-                            <img src={cartoon.image} alt={cartoon.title} className={styles.movieImage} />
-                            <div className={styles.movieInfo}>
-                                <h3>{cartoon.title}</h3>
-                                <p>
-                                    Rating: <span className={styles.stars}>{'⭐'.repeat(cartoon.rating)}</span>
-                                </p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-                <button className={styles.button}>Load More Cartoons</button>
-
-                <h2>Anime</h2>
-                <div className={styles.movies}>
-                    {anime.map((animeItem, index) => (
-                        <div key={index} className={styles.movieCard}>
-                            <img src={animeItem.image} alt={animeItem.title} className={styles.movieImage} />
-                            <div className={styles.movieInfo}>
-                                <h3>{animeItem.title}</h3>
-                                <p>
-                                    Rating: <span className={styles.stars}>{'⭐'.repeat(animeItem.rating)}</span>
-                                </p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-                <button className={styles.button}>Load More Anime</button>
+                    </div>
+                ))}
             </div>
-        );
-    }
-}
+
+            <h2>Top Rated TV Shows</h2>
+            <div className={styles.horizontalScroll}>
+                {tvShows.map((show) => (
+                    <div key={show.id} className={styles.card}>
+                        <img
+                            src={`https://image.tmdb.org/t/p/w200${show.poster_path}`}
+                            alt={show.name}
+                            className={styles.image}
+                        />
+                        <div className={styles.info}>
+                            <h3>{show.name}</h3>
+                            <p>Rating: {"⭐".repeat(Math.round(show.vote_average / 2))}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
 
 export default MovieList;

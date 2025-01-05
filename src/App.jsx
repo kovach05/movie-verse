@@ -11,6 +11,7 @@ import ProtectedRoute from './ProtectedRoute';
 import { AuthProvider } from '/src/context/AuthProvider.jsx';
 import MovieDetails from "./components/Movie/MovieDetails.jsx";
 import MovieS from "./components/Movie/MovieS.jsx";
+import TVShows from "./pages/TVShows.jsx";
 
 export default function App() {
     return (
@@ -33,6 +34,7 @@ export default function App() {
                             }
                         />
                         <Route path="/movies" element={<Movie />} />
+                        <Route path="/tv-shows" element={<TVShows />} />
                         <Route path="/" element={<MovieS />} />
                         <Route path="/movie/:id" element={<MovieDetails />} />
                         <Route path="/registration" element={<Registration />} />

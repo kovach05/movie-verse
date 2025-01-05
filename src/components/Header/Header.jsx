@@ -18,16 +18,16 @@ const Header = ({ title = 'MovieVerse' }) => {
                 <button className={styles.navButton} onClick={() => handleNavigation('/movies')}>
                     Movies
                 </button>
-                <button className={styles.navButton}>Sport</button>
-                <button className={styles.navButton}>Cartoons</button>
+                <button className={styles.navButton} onClick={() => handleNavigation('/tv-shows')}>
+                    TV Shows
+                </button>
                 <button className={styles.navButton}>Live</button>
-                <button className={styles.navButton}>Game</button>
             </nav>
             <div className={styles.actions}>
                 <input
                     type="text"
                     className={styles.searchInput}
-                    placeholder="Search movies..."
+                    placeholder="Search"
                 />
                 <button
                     className={styles.authButton}
