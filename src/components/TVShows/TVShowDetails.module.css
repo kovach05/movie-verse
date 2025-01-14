@@ -1,0 +1,128 @@
+.tvShowDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    background-color: #1c1c1c;
+    min-height: 100vh;
+}
+
+.header {
+    display: flex;
+    gap: 20px;
+    width: 80%;
+    margin-bottom: 30px;
+}
+
+.poster {
+    max-width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.info {
+    flex: 1;
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.overview {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.rating {
+    font-size: 1.5rem;
+    color: #ffcc00;
+}
+
+.player {
+    width: 80%;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.video {
+    width: 100%;
+    height: 500px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.loading,
+.error {
+    font-size: 1.5rem;
+    color: #ff3333;
+    margin-top: 20px;
+}
+
+.cast {
+    margin-top: 2rem;
+    width: 100%;
+    text-align: center;
+}
+
+.castContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.castList {
+    display: flex;
+    overflow-x: auto; /* Включити горизонтальний скрол */
+    scroll-behavior: smooth; /* Анімація плавного скролу */
+    gap: 1rem;
+    padding: 1rem 0;
+    width: 80%;
+    max-width: 600px; /* Обмеження ширини */
+}
+
+.actor {
+    flex: 0 0 auto; /* Елементи не розтягуються */
+    width: 150px;
+    text-align: center;
+}
+
+.actorImage {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.actorInfo {
+    font-size: 0.9rem;
+}
+
+.actorName {
+    font-weight: bold;
+}
+
+.actorCharacter {
+    color: gray;
+}
+
+.scrollButton {
+    background-color: #444;
+    color: black;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s ease;
+}
+
+.scrollButton:hover {
+    background-color: #666;
+}
