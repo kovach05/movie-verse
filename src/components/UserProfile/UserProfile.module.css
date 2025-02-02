@@ -1,56 +1,173 @@
+/* Контейнер профілю */
 .profileContainer {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     padding: 30px;
     background-color: #000;
     color: white;
     width: 100%;
+    min-height: 400px;
 }
 
+/* Інформація про користувача */
 .userInfo {
     flex: 1;
     font-size: 25px;
 }
 
-.userInfo p {
-    margin: 10px 0;
+/* Стиль для полів вводу */
+input[type="text"],
+input[type="email"] {
+    padding: 10px;
+    margin-top: 10px;
+    width: 250px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #333;
+    color: #fff;
 }
 
-.userInfo span {
-    font-weight: bold;
-    color: #aaa;
-    margin-right: 5px;
+input[type="text"]:focus,
+input[type="email"]:focus {
+    outline: none;
+    border-color: #00aaff;
 }
 
-.avatarSection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.avatarImage {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 3px solid #00aaff;
-    margin-bottom: 10px;
-}
-
-.changeAvatarButton, .changeProfileButton {
-    padding: 8px 16px;
+/* Стиль кнопки "Зберегти зміни" */
+.changeProfileButton {
+    padding: 10px 20px;
     width: 150px;
     height: 40px;
     border: none;
     border-radius: 4px;
-    background-color: #F14141;
-    color: #fff;
+    background-color: #4caf50;
+    color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-top: 10px;
 }
 
-.changeAvatarButton:hover, .changeProfileButton:hover {
-    background-color: black;
+.changeProfileButton:hover {
+    background-color: #388e3c;
 }
+
+/* Стиль для кнопки вибору аватарки */
+.avatarInput {
+    display: none;
+}
+
+.avatarInput + label {
+    padding: 10px 20px;
+    background-color: #00aaff;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.avatarInput + label:hover {
+    background-color: #007bb5;
+}
+
+/* Потрібна для відображення помилок вводу */
+.inputError {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* Кнопка для виходу */
+.logoutButton {
+    padding: 10px 20px;
+    width: 150px;
+    height: 40px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f44336;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.logoutButton:hover {
+    background-color: #d32f2f;
+}
+
+/* Відключення кнопки профілю після виходу */
+.disabled {
+    color: #aaa;
+    cursor: not-allowed;
+    pointer-events: none;  /* Забороняє будь-які взаємодії з елементом */
+}
+
+/* Стиль для аватарки */
+.avatarImage {
+    width: 150px; /* Ширина аватарки */
+    height: 150px; /* Висота аватарки */
+    border-radius: 50%; /* Робить аватарку круглою */
+    object-fit: cover; /* Зберігає пропорції зображення, обрізаючи його */
+    border: 2px solid #00aaff; /* Обводка навколо аватарки */
+}
+
+/* Кнопка зміни аватарки */
+.changeAvatarButton {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #00aaff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.changeAvatarButton:hover {
+    background-color: #007bb5;
+}
+
+/* Повідомлення про неавторизованого користувача */
+.notLoggedIn {
+    font-size: 18px;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Кнопка входу */
+.loginButton, .registerButton {
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #00aaff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.loginButton:hover, .registerButton:hover {
+    background-color: #007bb5;
+}
+
+/* Адаптивний дизайн */
+@media (max-width: 768px) {
+    .profileContainer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .userInfo,
+    .avatarSection {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .avatarImage {
+        margin: 0 auto;
+    }
+}
+
